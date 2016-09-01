@@ -8,14 +8,21 @@
 
 #import "ContainerViewController.h"
 
+static const CGFloat kNonModalViewMinScale = 0.9;
+static const CGFloat kNonModalViewMinAlpha = 0.6;
+
 @interface PrivateTransitionContext : NSObject <UIViewControllerContextTransitioning>
 - (instancetype)initWithFromViewController:(UIViewController *)fromViewController toViewController:(UIViewController *)toViewController goingRight:(BOOL)goingRight; /// Designated initializer.
 @property (nonatomic, copy) void (^completionBlock)(BOOL didComplete); /// A block of code we can set to execute after having received the completeTransition: message.
 @property (nonatomic, assign, getter=isAnimated) BOOL animated; /// Private setter for the animated property.
 @property (nonatomic, assign, getter=isInteractive) BOOL interactive; /// Private setter for the interactive property.
+
 @end
 
-@interface PrivateAnimatedTransition : NSObject <UIViewControllerAnimatedTransitioning>
+@interface PrivateAnimatedTransition : UIPercentDrivenInteractiveTransition <UIViewControllerAnimatedTransitioning>
+@property (nonatomic, assign, getter = isInteractive) BOOL interactive;
+@property (nonatomic, assign, getter = isPresenting) BOOL presenting;
+@property (nonatomic, strong) id<UIViewControllerContextTransitioning> transitionContext;
 @end
 
 @interface ContainerViewController () <UIGestureRecognizerDelegate>
@@ -24,6 +31,9 @@
 @property (nonatomic, strong) UIPanGestureRecognizer *gestureRecognizerPan ;
 @property (nonatomic, strong) UIViewController *upVC;
 @property (nonatomic, strong) UIViewController *downVC;
+
+@property (nonatomic, strong) PrivateAnimatedTransition *animator;
+@property (nonatomic, strong) PrivateTransitionContext  *transitionContext;
 @end
 
 @implementation ContainerViewController
@@ -38,7 +48,7 @@
     self.privateContainerView.opaque = YES;
     
     self.privateButtonsView = [[UIView alloc] init];
-    self.privateButtonsView.backgroundColor = [UIColor purpleColor];
+    self.privateButtonsView.backgroundColor = [UIColor clearColor];
     self.privateButtonsView.tintColor = [UIColor colorWithWhite:1 alpha:0.75f];
     [self.privateContainerView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.privateButtonsView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -106,10 +116,12 @@
     CGPoint velocity = [recognizer velocityInView:self.parentViewController.view];
     
     // Note: Only one presentation may occur at a time, as per usual
+    self.animator = [[PrivateAnimatedTransition alloc] init];
+    _animator.interactive = true;
     
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         
-        [self _transitionToChildViewController:self.downVC];
+        [self _transitionToChildViewController:self.downVC animatro:_animator context:nil];
 //        self.interactive = YES;
 //        self.presenting = YES;
 //        TLMenuViewController *viewController = [[TLMenuViewController alloc] initWithPanTarget:self];
@@ -123,7 +135,7 @@
         NSLog(@"UIGestureRecognizerStateChanged - %@", NSStringFromCGPoint(location));
         NSLog(@"UIGestureRecognizerStateChanged - %f", ratio);
         
-        // [self updateInteractiveTransition:ratio];
+        [self.animator updateInteractiveTransition:ratio];
         
         
         //        CGFloat percentage = [recognizer translationInView:_parentViewController.view].y / CGRectGetHeight(_parentViewController.view.bounds);
@@ -182,7 +194,7 @@
 }
 
 #pragma mark - private
-- (void)_transitionToChildViewController:(UIViewController *)toViewController {
+- (void)_transitionToChildViewController:(UIViewController *)toViewController animatro:(PrivateAnimatedTransition *)animator2 context:(PrivateTransitionContext *)context2{
     
     UIViewController *fromViewController = ([self.childViewControllers count] > 0 ? self.childViewControllers[0] : nil);
     if (toViewController == fromViewController || ![self isViewLoaded]) {
@@ -207,14 +219,16 @@
     // Animate the transition by calling the animator with our private transition context. If we don't have a delegate, or if it doesn't return an animated transitioning object, we will use our own, private animator.
     
     id<UIViewControllerAnimatedTransitioning>animator = nil;
+    PrivateTransitionContext *transitionContext = nil;
 //    if ([self.delegate respondsToSelector:@selector (containerViewController:animationControllerForTransitionFromViewController:toViewController:)]) {
 //        animator = [self.delegate containerViewController:self animationControllerForTransitionFromViewController:fromViewController toViewController:toViewController];
 //    }
-    animator = (animator ?: [[PrivateAnimatedTransition alloc] init]);
+    animator = (animator ? animator2: [[PrivateAnimatedTransition alloc] init]);
     
     // Because of the nature of our view controller, with horizontally arranged buttons, we instantiate our private transition context with information about whether this is a left-to-right or right-to-left transition. The animator can use this information if it wants.
 
-    PrivateTransitionContext *transitionContext = [[PrivateTransitionContext alloc] initWithFromViewController:fromViewController toViewController:toViewController goingRight: true ];
+    transitionContext = (context2? context2: [[PrivateTransitionContext alloc] initWithFromViewController:fromViewController toViewController:toViewController goingRight: true ]);
+    self.transitionContext = transitionContext;
     
     transitionContext.animated = YES;
     transitionContext.interactive = NO;
@@ -319,6 +333,10 @@ static CGFloat const kInitialSpringVelocity = 0.5;
 
 /// Slide views horizontally, with a bit of space between, while fading out and in.
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
+    if (true) {
+        [self startInteractiveTransition:transitionContext];
+    } else {
+        
     
     UIViewController* toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIViewController* fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
@@ -341,6 +359,133 @@ static CGFloat const kInitialSpringVelocity = 0.5;
         fromViewController.view.transform = CGAffineTransformIdentity;
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
+        
+    }
+}
+
+
+#pragma mark - UIViewControllerInteractiveTransitioning Methods
+
+-(void)startInteractiveTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
+    self.transitionContext = transitionContext;
+    self.presenting = true;
+    
+    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    
+    CGRect endFrame = [[transitionContext containerView] bounds];
+    
+    if (self.presenting)
+    {
+        // The order of these matters – determines the view hierarchy order.
+        [transitionContext.containerView addSubview:fromViewController.view];
+        [transitionContext.containerView addSubview:toViewController.view];
+        
+        endFrame.origin.x -= CGRectGetHeight([[transitionContext containerView] bounds]);
+    }
+    else {
+        [transitionContext.containerView addSubview:toViewController.view];
+        [transitionContext.containerView addSubview:fromViewController.view];
+    }
+    
+    toViewController.view.frame = endFrame;
+    
+}
+
+#pragma mark - UIPercentDrivenInteractiveTransition Overridden Methods
+
+- (void)updateInteractiveTransition:(CGFloat)percentComplete {
+    id<UIViewControllerContextTransitioning> transitionContext = self.transitionContext;
+    
+    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    
+    
+    // Presenting goes from 0...1 and dismissing goes from 1...0
+    CGRect frame = CGRectOffset([[transitionContext containerView] bounds], 0, CGRectGetHeight([[transitionContext containerView] bounds]) * percentComplete);
+    NSLog(@"++++%@", [transitionContext containerView]);
+    NSLog(@"%@", NSStringFromCGRect(frame));
+    NSLog(@"%f", percentComplete);
+    
+    if (self.presenting)
+    {
+        toViewController.view.frame = frame;
+        // fromViewController.view.frame = frame;
+        
+        float scaleFactor = kNonModalViewMinScale + (1 - kNonModalViewMinScale) * percentComplete;
+        float alphaVal = kNonModalViewMinAlpha + (1 - kNonModalViewMinAlpha) * percentComplete;
+        [self.transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey].view.transform = CGAffineTransformScale(CGAffineTransformIdentity, scaleFactor, scaleFactor);
+        [self.transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey].view.alpha = alphaVal;
+    }
+    else {
+        fromViewController.view.frame = frame;
+    }
+}
+
+- (void)finishInteractiveTransition {
+    id<UIViewControllerContextTransitioning> transitionContext = self.transitionContext;
+    
+    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    
+    if (self.presenting)
+    {
+        CGRect endFrame = [[transitionContext containerView] bounds];
+        
+        [UIView animateWithDuration:0.5f animations:^{
+            toViewController.view.frame = endFrame;
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:YES];
+            [[[UIApplication sharedApplication] keyWindow] addSubview:toViewController.view];
+        }];
+    }
+    else {
+        CGRect endFrame = CGRectOffset([[transitionContext containerView] bounds], -CGRectGetWidth([[self.transitionContext containerView] bounds]), 0);
+        
+        [UIView animateWithDuration:0.5f animations:^{
+            fromViewController.view.frame = endFrame;
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:YES];
+            [[[UIApplication sharedApplication] keyWindow] addSubview:toViewController.view];
+        }];
+    }
+    
+}
+
+- (void)cancelInteractiveTransition {
+    id<UIViewControllerContextTransitioning> transitionContext = self.transitionContext;
+    
+    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    
+    CGAffineTransform transformVal = CGAffineTransformIdentity;
+    CGFloat alphaVal = 1.0;
+    
+    if (self.presenting)
+    {
+        CGRect endFrame = CGRectOffset([[transitionContext containerView] bounds], -CGRectGetWidth([[transitionContext containerView] bounds]), 0);
+        
+        [UIView animateWithDuration:0.5f animations:^{
+            toViewController.view.frame = endFrame;
+            fromViewController.view.transform = transformVal;
+            fromViewController.view.alpha = alphaVal;
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:NO];
+            [[[UIApplication sharedApplication] keyWindow] addSubview:fromViewController.view];
+        }];
+    }
+    else {
+        CGRect endFrame = [[transitionContext containerView] bounds];
+        
+        [UIView animateWithDuration:0.5f animations:^{
+            fromViewController.view.frame = endFrame;
+            fromViewController.view.transform = transformVal;
+            fromViewController.view.alpha = alphaVal;
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:NO];
+            [[[UIApplication sharedApplication] keyWindow] addSubview:fromViewController.view];
+        }];
+    }
 }
 
 @end

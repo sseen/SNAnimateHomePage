@@ -334,7 +334,7 @@ static CGFloat const kInitialSpringVelocity = 0.5;
 /// Slide views horizontally, with a bit of space between, while fading out and in.
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
     if (true) {
-        [self startInteractiveTransition:transitionContext];
+//        [self startInteractiveTransition:transitionContext];
     } else {
         
     

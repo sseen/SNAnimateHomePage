@@ -13,6 +13,8 @@
 		92C151371D767F1E00A8958F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92C151351D767F1E00A8958F /* Main.storyboard */; };
 		92C151391D767F1E00A8958F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92C151381D767F1E00A8958F /* Assets.xcassets */; };
 		92C1513C1D767F1E00A8958F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92C1513A1D767F1E00A8958F /* LaunchScreen.storyboard */; };
+		92C151451D7683A300A8958F /* MySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C151441D7683A300A8958F /* MySegue.m */; };
+		92C151481D7687B600A8958F /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C151471D7687B600A8958F /* ContainerViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,10 @@
 		92C151381D767F1E00A8958F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92C1513B1D767F1E00A8958F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		92C1513D1D767F1E00A8958F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		92C151431D7683A300A8958F /* MySegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySegue.h; sourceTree = "<group>"; };
+		92C151441D7683A300A8958F /* MySegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySegue.m; sourceTree = "<group>"; };
+		92C151461D7687B600A8958F /* ContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerViewController.h; sourceTree = "<group>"; };
+		92C151471D7687B600A8958F /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,11 +68,15 @@
 				92C151301D767F1E00A8958F /* AppDelegate.m */,
 				92C151321D767F1E00A8958F /* ViewController.h */,
 				92C151331D767F1E00A8958F /* ViewController.m */,
+				92C151461D7687B600A8958F /* ContainerViewController.h */,
+				92C151471D7687B600A8958F /* ContainerViewController.m */,
 				92C151351D767F1E00A8958F /* Main.storyboard */,
 				92C151381D767F1E00A8958F /* Assets.xcassets */,
 				92C1513A1D767F1E00A8958F /* LaunchScreen.storyboard */,
 				92C1513D1D767F1E00A8958F /* Info.plist */,
 				92C1512C1D767F1E00A8958F /* Supporting Files */,
+				92C151431D7683A300A8958F /* MySegue.h */,
+				92C151441D7683A300A8958F /* MySegue.m */,
 			);
 			path = ContainerVC;
 			sourceTree = "<group>";
@@ -152,6 +162,8 @@
 				92C151341D767F1E00A8958F /* ViewController.m in Sources */,
 				92C151311D767F1E00A8958F /* AppDelegate.m in Sources */,
 				92C1512E1D767F1E00A8958F /* main.m in Sources */,
+				92C151451D7683A300A8958F /* MySegue.m in Sources */,
+				92C151481D7687B600A8958F /* ContainerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

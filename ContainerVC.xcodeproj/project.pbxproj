@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		924F37C91D77DBCA00E65B82 /* SNHomeInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 924F37C81D77DBCA00E65B82 /* SNHomeInteractor.m */; };
 		92C1512E1D767F1E00A8958F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C1512D1D767F1E00A8958F /* main.m */; };
 		92C151311D767F1E00A8958F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C151301D767F1E00A8958F /* AppDelegate.m */; };
 		92C151341D767F1E00A8958F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C151331D767F1E00A8958F /* ViewController.m */; };
@@ -18,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		924F37C71D77DBCA00E65B82 /* SNHomeInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNHomeInteractor.h; sourceTree = "<group>"; };
+		924F37C81D77DBCA00E65B82 /* SNHomeInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNHomeInteractor.m; sourceTree = "<group>"; };
 		92C151291D767F1E00A8958F /* ContainerVC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContainerVC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C1512D1D767F1E00A8958F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		92C1512F1D767F1E00A8958F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -70,6 +73,8 @@
 				92C151331D767F1E00A8958F /* ViewController.m */,
 				92C151461D7687B600A8958F /* ContainerViewController.h */,
 				92C151471D7687B600A8958F /* ContainerViewController.m */,
+				924F37C71D77DBCA00E65B82 /* SNHomeInteractor.h */,
+				924F37C81D77DBCA00E65B82 /* SNHomeInteractor.m */,
 				92C151351D767F1E00A8958F /* Main.storyboard */,
 				92C151381D767F1E00A8958F /* Assets.xcassets */,
 				92C1513A1D767F1E00A8958F /* LaunchScreen.storyboard */,
@@ -163,6 +168,7 @@
 				92C151311D767F1E00A8958F /* AppDelegate.m in Sources */,
 				92C1512E1D767F1E00A8958F /* main.m in Sources */,
 				92C151451D7683A300A8958F /* MySegue.m in Sources */,
+				924F37C91D77DBCA00E65B82 /* SNHomeInteractor.m in Sources */,
 				92C151481D7687B600A8958F /* ContainerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,6 +320,7 @@
 				92C151421D767F1E00A8958F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

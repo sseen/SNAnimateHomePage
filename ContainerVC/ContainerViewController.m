@@ -204,7 +204,7 @@ static const CGFloat kNonModalViewMinAlpha = 0.6;
     UIView *toView = toViewController.view;
     [toView setTranslatesAutoresizingMaskIntoConstraints:YES];
     toView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    toView.frame = self.privateContainerView.bounds;
+    // toView.frame = self.privateContainerView.bounds;
     
     [fromViewController willMoveToParentViewController:nil];
     [self addChildViewController:toViewController];
@@ -333,43 +333,41 @@ static CGFloat const kInitialSpringVelocity = 0.5;
 
 /// Slide views horizontally, with a bit of space between, while fading out and in.
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
-    if (true) {
-//        [
-        self startInteractiveTransition:transitionContext];
-    } else {
-        
-    
-    UIViewController* toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIViewController* fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    
-    // When sliding the views horizontally in and out, figure out whether we are going left or right.
-    BOOL goingRight = ([transitionContext initialFrameForViewController:toViewController].origin.x < [transitionContext finalFrameForViewController:toViewController].origin.x);
-    CGFloat travelDistance = [transitionContext containerView].bounds.size.width + kChildViewPadding;
-    CGAffineTransform travel = CGAffineTransformMakeTranslation (goingRight ? travelDistance : -travelDistance, 0);
-    
-    [[transitionContext containerView] addSubview:toViewController.view];
-    toViewController.view.alpha = 0;
-    toViewController.view.transform = CGAffineTransformInvert (travel);
-    
-    [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:kDamping initialSpringVelocity:kInitialSpringVelocity options:0x00 animations:^{
-        fromViewController.view.transform = travel;
-        fromViewController.view.alpha = 0;
-        toViewController.view.transform = CGAffineTransformIdentity;
-        toViewController.view.alpha = 1;
-    } completion:^(BOOL finished) {
-        fromViewController.view.transform = CGAffineTransformIdentity;
-        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
-    }];
-        
-    }
+//    if (true) {
+//        // [self startInteractiveTransition:transitionContext];
+//    } else {
+//        
+//    
+//    UIViewController* toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+//    UIViewController* fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+//    
+//    // When sliding the views horizontally in and out, figure out whether we are going left or right.
+//    BOOL goingRight = ([transitionContext initialFrameForViewController:toViewController].origin.x < [transitionContext finalFrameForViewController:toViewController].origin.x);
+//    CGFloat travelDistance = [transitionContext containerView].bounds.size.width + kChildViewPadding;
+//    CGAffineTransform travel = CGAffineTransformMakeTranslation (goingRight ? travelDistance : -travelDistance, 0);
+//    
+//    [[transitionContext containerView] addSubview:toViewController.view];
+//    toViewController.view.alpha = 0;
+//    toViewController.view.transform = CGAffineTransformInvert (travel);
+//    
+//    [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:kDamping initialSpringVelocity:kInitialSpringVelocity options:0x00 animations:^{
+//        fromViewController.view.transform = travel;
+//        fromViewController.view.alpha = 0;
+//        toViewController.view.transform = CGAffineTransformIdentity;
+//        toViewController.view.alpha = 1;
+//    } completion:^(BOOL finished) {
+//        fromViewController.view.transform = CGAffineTransformIdentity;
+//        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
+//    }];
+//        
+//    }
 }
 
 
 #pragma mark - UIViewControllerInteractiveTransitioning Methods
 
 -(void)startInteractiveTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
-    self.transitionContext = transitionContext;
-    self.presenting = true;
+    
     
     UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
@@ -408,10 +406,12 @@ static CGFloat const kInitialSpringVelocity = 0.5;
     NSLog(@"%@", NSStringFromCGRect(frame));
     NSLog(@"%f", percentComplete);
     
-    if (self.presenting)
+//    if (self.presenting)
+    if (true)
     {
         toViewController.view.frame = frame;
         // fromViewController.view.frame = frame;
+        NSLog(@"%@ ----", NSStringFromCGRect(frame));
         
         float scaleFactor = kNonModalViewMinScale + (1 - kNonModalViewMinScale) * percentComplete;
         float alphaVal = kNonModalViewMinAlpha + (1 - kNonModalViewMinAlpha) * percentComplete;

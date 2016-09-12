@@ -101,9 +101,6 @@ static const CGFloat kNonModalViewMinAlpha = 0.6;
     self.gestureRecognizerPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(userDidPan:)];
     [self.privateButtonsView addGestureRecognizer:_gestureRecognizerPan];
     
-    
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -122,12 +119,7 @@ static const CGFloat kNonModalViewMinAlpha = 0.6;
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         
         [self _transitionToChildViewController:self.downVC animatro:_animator context:nil];
-//        self.interactive = YES;
-//        self.presenting = YES;
-//        TLMenuViewController *viewController = [[TLMenuViewController alloc] initWithPanTarget:self];
-//        viewController.modalPresentationStyle = UIModalPresentationCustom;
-//        viewController.transitioningDelegate = self;
-//        [self.parentViewController presentViewController:viewController animated:YES completion:nil];
+        
     }
     else if (recognizer.state == UIGestureRecognizerStateChanged) {
         // Determine our ratio between the left edge and the right edge. This means our dismissal will go from 1...0.
@@ -137,59 +129,13 @@ static const CGFloat kNonModalViewMinAlpha = 0.6;
         self.animator.transitionContext = self.transitionContext;
         [self.animator updateInteractiveTransition:ratio];
         
-        
-        //        CGFloat percentage = [recognizer translationInView:_parentViewController.view].y / CGRectGetHeight(_parentViewController.view.bounds);
-        //        NSLog(@"%f-------", [recognizer velocityInView:recognizer.view.superview].y);
-        //        NSLog(@"%f", percentage);
-        //        NSLog(@"%@", recognizer.view);
-        //        NSLog(@"%@", NSStringFromCGPoint([recognizer translationInView:_parentViewController.view]));
-        //        NSLog(@"%@", [self.transitionContext viewControllerForKey:UITransitionContextToViewControllerKey].view);
-        //
-        //        float scaleFactor = kNonModalViewMinScale + (1 - kNonModalViewMinScale) * percentage;
-        //        float alphaVal = kNonModalViewMinAlpha + (1 - kNonModalViewMinAlpha) * percentage;
-        //
-        //        [self.transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey].view.transform = CGAffineTransformScale(CGAffineTransformIdentity, scaleFactor, scaleFactor);
-        //        [self.transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey].view.alpha = alphaVal;
-        //
-        //        CGRect modalVCFrame = [_transitionContext viewForKey:UITransitionContextToViewKey].frame;
-        //        modalVCFrame.origin.y = percentage * CGRectGetHeight(_parentViewController.view.frame) + kModalViewYOffset;
-        //        [self.transitionContext viewControllerForKey:UITransitionContextToViewControllerKey].view.frame = modalVCFrame;
-        
     }
     else if (recognizer.state == UIGestureRecognizerStateEnded) {
         // Depending on our state and the velocity, determine whether to cancel or complete the transition.
         
         CGFloat velocityY = [recognizer velocityInView:recognizer.view.superview].y;
-        
-        
-//        BOOL cancelUp = (velocityY > 0) || (velocityY == 0 && recognizer.view.frame.origin.y < CGRectGetHeight(_parentViewController.view.bounds)/2);
-//        
-//        CGFloat points = cancelUp ? recognizer.view.frame.origin.y : CGRectGetHeight(_parentViewController.view.bounds) - recognizer.view.frame.origin.y;
-//        NSTimeInterval duration = points / velocityY;
-        
-//        if (duration < 0.2) {
-//            duration = 0.2;
-//        }
-//        else if(duration > 0.4){
-//            duration = 0.4;
-//        }
-//        
-//        if (self.presenting) {
-//            if (velocity.y < 0) {
-//                [self finishInteractiveTransition];
-//            }
-//            else {
-//                [self cancelInteractiveTransition];
-//            }
-//        }
-//        else {
-//            if (velocity.y > 0) {
-//                [self finishInteractiveTransition];
-//            }
-//            else {
-//                [self cancelInteractiveTransition];
-//            }
-//        }
+        self.animator.transitionContext = self.transitionContext;
+        [self.animator finishInteractiveTransition];
     }
 }
 
@@ -442,10 +388,11 @@ static CGFloat const kInitialSpringVelocity = 0.5;
         }];
     }
     else {
-        CGRect endFrame = CGRectOffset([[transitionContext containerView] bounds], -CGRectGetWidth([[self.transitionContext containerView] bounds]), 0);
+        CGRect endFrame = CGRectOffset([[transitionContext containerView] bounds], 0, 0);
         
         [UIView animateWithDuration:0.5f animations:^{
             fromViewController.view.frame = endFrame;
+            toViewController.view.frame = endFrame;
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:YES];
             [[[UIApplication sharedApplication] keyWindow] addSubview:toViewController.view];

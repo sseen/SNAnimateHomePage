@@ -134,7 +134,7 @@ static const CGFloat kNonModalViewMinAlpha = 0.6;
         CGFloat ratio = location.y / CGRectGetHeight(self.parentViewController.view.bounds);
         NSLog(@"UIGestureRecognizerStateChanged - %@", NSStringFromCGPoint(location));
         NSLog(@"UIGestureRecognizerStateChanged - %f", ratio);
-        
+        self.animator.transitionContext = self.transitionContext;
         [self.animator updateInteractiveTransition:ratio];
         
         
@@ -223,12 +223,14 @@ static const CGFloat kNonModalViewMinAlpha = 0.6;
 //    if ([self.delegate respondsToSelector:@selector (containerViewController:animationControllerForTransitionFromViewController:toViewController:)]) {
 //        animator = [self.delegate containerViewController:self animationControllerForTransitionFromViewController:fromViewController toViewController:toViewController];
 //    }
-    animator = (animator ? animator2: [[PrivateAnimatedTransition alloc] init]);
+    animator = (animator2 ? animator2: [[PrivateAnimatedTransition alloc] init]);
     
     // Because of the nature of our view controller, with horizontally arranged buttons, we instantiate our private transition context with information about whether this is a left-to-right or right-to-left transition. The animator can use this information if it wants.
 
     transitionContext = (context2? context2: [[PrivateTransitionContext alloc] initWithFromViewController:fromViewController toViewController:toViewController goingRight: true ]);
     self.transitionContext = transitionContext;
+    self.animator.transitionContext = transitionContext;
+
     
     transitionContext.animated = YES;
     transitionContext.interactive = NO;
@@ -398,7 +400,6 @@ static CGFloat const kInitialSpringVelocity = 0.5;
     
     UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    
     
     // Presenting goes from 0...1 and dismissing goes from 1...0
     CGRect frame = CGRectOffset([[transitionContext containerView] bounds], 0, CGRectGetHeight([[transitionContext containerView] bounds]) * percentComplete);

@@ -320,6 +320,7 @@ static CGFloat const kInitialSpringVelocity = 0.5;
     UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
+    
     CGRect endFrame = [[transitionContext containerView] bounds];
     
     if (self.presenting)
@@ -346,6 +347,7 @@ static CGFloat const kInitialSpringVelocity = 0.5;
     
     UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    [(UINavigationController *)toViewController navigationBar].alpha = 0;
     
     // Presenting goes from 0...1 and dismissing goes from 1...0
     CGRect frame = CGRectOffset([[transitionContext containerView] bounds], 0, CGRectGetHeight([[transitionContext containerView] bounds]) * percentComplete);
@@ -393,6 +395,7 @@ static CGFloat const kInitialSpringVelocity = 0.5;
         [UIView animateWithDuration:0.5f animations:^{
             fromViewController.view.frame = endFrame;
             toViewController.view.frame = endFrame;
+            [(UINavigationController *)toViewController navigationBar].alpha = 1.0;
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:YES];
             [[[UIApplication sharedApplication] keyWindow] addSubview:toViewController.view];

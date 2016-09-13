@@ -53,7 +53,7 @@
                     </view>
                     <connections>
                         <segue destination="IVD-ng-tTD" kind="custom" id="jQc-oC-oau"/>
-                        <segue destination="WoO-n3-XPe" kind="custom" id="gao-3E-RYB"/>
+                        <segue destination="Pbx-xI-ID2" kind="custom" id="gao-3E-RYB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QWg-uV-pVD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -95,7 +95,7 @@
         <!--View Controller-->
         <scene sceneID="Jkg-pb-JdG">
             <objects>
-                <viewController storyboardIdentifier="downVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="WoO-n3-XPe" sceneMemberID="viewController">
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="WoO-n3-XPe" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gWk-5A-IQT"/>
                         <viewControllerLayoutGuide type="bottom" id="hyw-GC-SpK"/>
@@ -112,6 +112,9 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VfT-zM-spd">
                                                         <state key="normal" title="Button"/>
+                                                        <connections>
+                                                            <segue destination="heh-Gg-IA8" kind="push" id="V9l-uS-hjl"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -126,12 +129,50 @@
                             <constraint firstItem="ZRU-d8-LHN" firstAttribute="centerY" secondItem="qUQ-hR-3fW" secondAttribute="centerY" id="rVY-DD-Irw"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="lLj-54-RwD"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="200"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SRl-x2-ZWA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="562" y="1000"/>
+            <point key="canvasLocation" x="1149" y="1000"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="qDY-CW-9MI">
+            <objects>
+                <viewController id="heh-Gg-IA8" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hrS-0n-ntE"/>
+                        <viewControllerLayoutGuide type="bottom" id="i0D-st-aPr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="sWy-MK-XwR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Lld-v7-3VF"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JVi-9X-Sk2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1606" y="1150"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Xig-vB-G2O">
+            <objects>
+                <navigationController storyboardIdentifier="downVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Pbx-xI-ID2" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EQ9-wM-68r">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="WoO-n3-XPe" kind="relationship" relationship="rootViewController" id="2NO-IM-EsU"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="44b-mb-76f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="562" y="1260"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -10,4 +10,8 @@
 
 @interface ContainerViewController : UIViewController
 
+@property (nonatomic, strong) UIViewController *upVC;
+@property (nonatomic, strong) UIViewController *downVC;
+
+
 @end

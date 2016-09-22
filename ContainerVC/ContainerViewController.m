@@ -29,8 +29,6 @@ static const CGFloat kNonModalViewMinAlpha = 0.6;
 @property (nonatomic, strong) UIView *privateContainerView; /// The view hosting the child view controllers views.
 @property (nonatomic, strong) UIView *privateButtonsView;
 @property (nonatomic, strong) UIPanGestureRecognizer *gestureRecognizerPan ;
-@property (nonatomic, strong) UIViewController *upVC;
-@property (nonatomic, strong) UIViewController *downVC;
 
 @property (nonatomic, strong) PrivateAnimatedTransition *animator;
 @property (nonatomic, strong) PrivateTransitionContext  *transitionContext;

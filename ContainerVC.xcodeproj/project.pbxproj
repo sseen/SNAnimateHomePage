@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		924F37C91D77DBCA00E65B82 /* SNHomeInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 924F37C81D77DBCA00E65B82 /* SNHomeInteractor.m */; };
 		927E62ED1D93D7BA00D2CD55 /* DownViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 927E62EC1D93D7BA00D2CD55 /* DownViewController.m */; };
-		927E62F01D93D87A00D2CD55 /* LableTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 927E62EF1D93D87A00D2CD55 /* LableTableViewCell.m */; };
+		929B77721D99269D000A0B41 /* LabelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 929B77701D99269D000A0B41 /* LabelTableViewCell.m */; };
+		929B77731D99269D000A0B41 /* LabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 929B77711D99269D000A0B41 /* LabelTableViewCell.xib */; };
 		92C1512E1D767F1E00A8958F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C1512D1D767F1E00A8958F /* main.m */; };
 		92C151311D767F1E00A8958F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C151301D767F1E00A8958F /* AppDelegate.m */; };
 		92C151341D767F1E00A8958F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C151331D767F1E00A8958F /* ViewController.m */; };
@@ -25,8 +26,9 @@
 		924F37C81D77DBCA00E65B82 /* SNHomeInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNHomeInteractor.m; sourceTree = "<group>"; };
 		927E62EB1D93D7BA00D2CD55 /* DownViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownViewController.h; sourceTree = "<group>"; };
 		927E62EC1D93D7BA00D2CD55 /* DownViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownViewController.m; sourceTree = "<group>"; };
-		927E62EE1D93D87A00D2CD55 /* LableTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LableTableViewCell.h; sourceTree = "<group>"; };
-		927E62EF1D93D87A00D2CD55 /* LableTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LableTableViewCell.m; sourceTree = "<group>"; };
+		929B776F1D99269D000A0B41 /* LabelTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LabelTableViewCell.h; path = ../LabelTableViewCell.h; sourceTree = "<group>"; };
+		929B77701D99269D000A0B41 /* LabelTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LabelTableViewCell.m; path = ../LabelTableViewCell.m; sourceTree = "<group>"; };
+		929B77711D99269D000A0B41 /* LabelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LabelTableViewCell.xib; path = ../LabelTableViewCell.xib; sourceTree = "<group>"; };
 		92C151291D767F1E00A8958F /* ContainerVC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContainerVC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C1512D1D767F1E00A8958F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		92C1512F1D767F1E00A8958F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -73,14 +75,15 @@
 		92C1512B1D767F1E00A8958F /* ContainerVC */ = {
 			isa = PBXGroup;
 			children = (
+				929B776F1D99269D000A0B41 /* LabelTableViewCell.h */,
+				929B77701D99269D000A0B41 /* LabelTableViewCell.m */,
+				929B77711D99269D000A0B41 /* LabelTableViewCell.xib */,
 				92C1512F1D767F1E00A8958F /* AppDelegate.h */,
 				92C151301D767F1E00A8958F /* AppDelegate.m */,
 				92C151321D767F1E00A8958F /* ViewController.h */,
 				92C151331D767F1E00A8958F /* ViewController.m */,
 				927E62EB1D93D7BA00D2CD55 /* DownViewController.h */,
 				927E62EC1D93D7BA00D2CD55 /* DownViewController.m */,
-				927E62EE1D93D87A00D2CD55 /* LableTableViewCell.h */,
-				927E62EF1D93D87A00D2CD55 /* LableTableViewCell.m */,
 				92C151461D7687B600A8958F /* ContainerViewController.h */,
 				92C151471D7687B600A8958F /* ContainerViewController.m */,
 				924F37C71D77DBCA00E65B82 /* SNHomeInteractor.h */,
@@ -163,6 +166,7 @@
 			files = (
 				92C1513C1D767F1E00A8958F /* LaunchScreen.storyboard in Resources */,
 				92C151391D767F1E00A8958F /* Assets.xcassets in Resources */,
+				929B77731D99269D000A0B41 /* LabelTableViewCell.xib in Resources */,
 				92C151371D767F1E00A8958F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -176,7 +180,7 @@
 			files = (
 				92C151341D767F1E00A8958F /* ViewController.m in Sources */,
 				92C151311D767F1E00A8958F /* AppDelegate.m in Sources */,
-				927E62F01D93D87A00D2CD55 /* LableTableViewCell.m in Sources */,
+				929B77721D99269D000A0B41 /* LabelTableViewCell.m in Sources */,
 				92C1512E1D767F1E00A8958F /* main.m in Sources */,
 				92C151451D7683A300A8958F /* MySegue.m in Sources */,
 				924F37C91D77DBCA00E65B82 /* SNHomeInteractor.m in Sources */,

@@ -151,6 +151,9 @@
                     <navigationItem key="navigationItem" id="lLj-54-RwD"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="200"/>
+                    <connections>
+                        <outlet property="mainTable" destination="6fH-73-FBl" id="FG1-lh-NGY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SRl-x2-ZWA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

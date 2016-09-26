@@ -1,14 +1,14 @@
 //
-//  LableTableViewCell.m
+//  LabelTableViewCell.m
 //  ContainerVC
 //
-//  Created by sseen on 2016/9/22.
+//  Created by sseen on 2016/9/26.
 //  Copyright © 2016年 sseen. All rights reserved.
 //
 
-#import "LableTableViewCell.h"
+#import "LabelTableViewCell.h"
 
-@implementation LableTableViewCell
+@implementation LabelTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

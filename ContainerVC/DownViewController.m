@@ -7,9 +7,11 @@
 //
 
 #import "DownViewController.h"
+#import "LabelTableViewCell.h"
 
 @interface DownViewController () <UITableViewDelegate, UITableViewDataSource>
 
+@property (weak, nonatomic) IBOutlet UITableView *mainTable;
 @end
 
 @implementation DownViewController
@@ -17,6 +19,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self.mainTable registerNib:[UINib nibWithNibName:@"LabelTableViewCell" bundle:nil]   forCellReuseIdentifier:@"cell0"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,8 +34,14 @@
     return 10;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 40;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    LabelTableViewCell *cell = (LabelTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell0"];
     
+    return cell;
 }
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2327e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -57,6 +57,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QWg-uV-pVD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="37R-hD-y4y" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="562" y="385"/>
         </scene>
@@ -148,7 +149,13 @@
                             <constraint firstItem="hyw-GC-SpK" firstAttribute="top" secondItem="6fH-73-FBl" secondAttribute="bottom" id="rFT-tp-g3c"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="lLj-54-RwD"/>
+                    <navigationItem key="navigationItem" id="lLj-54-RwD">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="SHJ-ua-co9">
+                            <connections>
+                                <segue destination="37R-hD-y4y" kind="unwind" unwindAction="unwindSegueToRedViewController:" id="bSd-gG-5jC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="200"/>
                     <connections>

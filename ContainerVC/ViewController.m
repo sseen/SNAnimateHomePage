@@ -27,8 +27,12 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     ContainerViewController *controller =  [[segue.sourceViewController parentViewController] parentViewController];
-    controller.downVC.view.hidden = true ;
-    controller.upVC.view.frame = [UIScreen mainScreen].bounds;
+    [UIView animateWithDuration:0.5 animations:^{
+        controller.downVC.view.hidden = true ;
+        controller.upVC.view.frame = [UIScreen mainScreen].bounds;
+    }];
+    
+    
 }
 
 @end

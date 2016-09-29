@@ -11,7 +11,7 @@
 //自定义nslog 发布时不打印日志
 #ifdef DEBUG
 //#define DebugLog(format,...) NSLog(format,##__VA_ARGS__)
-#define NSLog(format, ...)  do {                                                                                \
+#define NSLog(format, ...)  do {                                            \
 fprintf(stderr, "\n<%s : %d> %s\n",                                         \
 [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String],  \
 __LINE__, __func__);                                                        \
@@ -50,6 +50,16 @@ static const CGFloat kNonModalViewMinAlpha = 0.6;
 @end
 
 @implementation ContainerViewController
+
+- (IBAction)unwindSegueToRedViewController:(UIStoryboardSegue *)segue {
+    if (segue.sourceViewController.navigationController == self.upVC) {
+        self.downVC.view.hidden = NO;
+        [segue.sourceViewController.navigationController popViewControllerAnimated:NO];
+    } else {
+        [self userDidPan:nil];
+    }
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -250,10 +260,6 @@ static const CGFloat kNonModalViewMinAlpha = 0.6;
     
     
     [animator animateTransition:transitionContext];
-}
-
-- (IBAction)unwindSegueToRedViewController:(UIStoryboardSegue *)segue {
-    [self userDidPan:nil];
 }
 
 @end

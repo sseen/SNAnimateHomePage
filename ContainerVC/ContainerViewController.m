@@ -142,9 +142,7 @@ static const CGFloat kNonModalViewMinAlpha = 0.6;
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         
         [self _transitionToChildViewController:self.downVC animatro:_animator context:nil velocityY:velocity.y];
-
-        
-        
+  
     }
     else if (recognizer.state == UIGestureRecognizerStateChanged) {
         // Determine our ratio between the left edge and the right edge. This means our dismissal will go from 1...0.
@@ -164,11 +162,6 @@ static const CGFloat kNonModalViewMinAlpha = 0.6;
         if (velocityY < 0) {
             [self.animator finishInteractiveTransition];
         } else {
-//            self.upVC = nil;
-//            self.upVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"upVC"];
-//            [self addChildViewController:self.upVC];
-//            [self.privateContainerView addSubview:self.upVC.view];
-//            [self.upVC didMoveToParentViewController:self];
             [self.animator cancelInteractiveTransition];
         }
     } else {
@@ -178,11 +171,6 @@ static const CGFloat kNonModalViewMinAlpha = 0.6;
         if (velocityY < 0) {
             [self.animator finishInteractiveTransition];
         } else {
-            //            self.upVC = nil;
-            //            self.upVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"upVC"];
-            //            [self addChildViewController:self.upVC];
-            //            [self.privateContainerView addSubview:self.upVC.view];
-            //            [self.upVC didMoveToParentViewController:self];
             [self.animator cancelInteractiveTransition];
         }
     }
